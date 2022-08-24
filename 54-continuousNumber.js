@@ -1,0 +1,29 @@
+// 문제 54 : 연속되는 수
+
+// 은주는 놀이공원 아르바이트를 하고 있다. 
+// 은주가 일하는 놀이공원에서는 현재 놀이공원 곳곳에 숨겨진 숫자 스탬프를 모아 오면 선물을 주는 이벤트를 하고 있다.
+// 숫자 스탬프는 매일 그 수와 스탬프에 적힌 숫자가 바뀌지만 그 숫자는 항상 연속된다.
+// 그런데 요즘 다른 날에 찍은 스탬프를 가지고 와 선물을 달라고 하는 손님이 늘었다.
+
+// 스탬프에 적힌 숫자가 공백으로 구분되어 주어지면 이 숫자가 연속수인지 아닌지 "YES"와 "NO"로 판별하는 프로그램을 작성하시오.
+
+const input = "1 4 2 6 3";
+
+function checkContinuity(input) {
+  // input을 number의 배열로 변환
+  const numbers = input.split(" ").map(Number);
+
+  // 오름차순으로 정렬
+  const sortedNumbers = numbers.sort((a, b) => a - b);
+
+  // 순회하며 각 요소에 1을 더한 값이 다음 요소와 일치하지 않으면 "NO" 반환
+  for (i = 0; i < sortedNumbers.length - 1; i++) {
+    if (sortedNumbers[i] + 1 !== sortedNumbers[i + 1]) return "NO";
+  }
+
+  // 순회를 무사히 마쳤으면 1씩 증가한다는 것이므로 "YES" 반환
+  return "YES";
+}
+
+const result = checkContinuity(input);
+console.log(result);
