@@ -8,7 +8,14 @@
 
 // 입력으로 주어진 괄호 문자열이 바른 문자열인지 바르지 않은 문자열인지 "YES"와 "NO"로 구분된 문자열을 출력해보자.
 
-const string = "[{()}]";
+const string = "[{(}]";
+
+// 여는 괄호에 대응되는 닫는 괄호를 객체로 만들어놓는다.
+const pairBrackets = {
+  "[": "]",
+  "{": "}",
+  "(": ")",
+};
 
 function validateBrackets(string) {
   // 입력된 string을 배열로 만든다.
@@ -21,16 +28,17 @@ function validateBrackets(string) {
 
   // 입력받은 배열의 순회를 시작한다.
   for (const bracket of brackets) {
-    // 각 여는 괄호마다 닫는 괄호가 있어야 하므로 여는 괄호에 대응되는 닫는 괄호를 배열에 추가한다.
-    if (bracket === "(") {
-      expectedBrackets.push(")");
-    } else if (bracket === "{") {
-      expectedBrackets.push("}");
-    } else if (bracket === "[") {
-      expectedBrackets.push("]");
-      // 여는 괄호가 아닐 경우, 기대한 닫는 괄호 배열의 마지막 요소와 일치하는지 확인해서
+    // 현재 순회하는 괄호의 짝을 객체에서 뽑아 pairBracket에 할당한다.
+    // pairBracket의 값이 존재할 경우 현재 순회하는 괄호는 여는 괄호이다.
+    const pairBracket = pairBrackets[bracket];
+
+    // 여는 괄호일 경우, 각 여는 괄호마다 닫는 괄호가 있어야 하므로
+    // 여는 괄호에 대응되는 닫는 괄호를 배열에 추가한다.
+    if (pairBracket) {
+      expectedBrackets.push(pairBracket);
+      // 여는 괄호가 아닐 경우, 닫는 괄호 배열의 마지막 요소와 일치하는지 확인해서
     } else if (bracket === expectedBrackets.at(-1)) {
-      // 일치한다면 해당 마지막 요소를 제거한다.
+      // 일치한다면 제대로 된 닫는 괄호가 온 것이므로 해당 마지막 요소를 제거한다.
       expectedBrackets.pop();
     }
     // 일치하지 않는다면 'FALSE'를 반환한다.
