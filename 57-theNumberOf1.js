@@ -25,13 +25,13 @@ function countTheNumber(from, to, targetNumber) {
   let count = 0;
 
   // 문자열을 하나씩 순회하며
-  for (let str in string) {
+  for (let str of string) {
     // 현재 순회 중인 문자열이 targetNumber와 일치하면 count를 1씩 증가시킨다.
-    if (string[str] == targetNumber) count++;
+    if (str == targetNumber) count++;
   }
 
   return count;
 }
 
-const result = countTheNumber(0, 12, 2);
+const result = countTheNumber(0, 1000, 1);
 console.log(result);
