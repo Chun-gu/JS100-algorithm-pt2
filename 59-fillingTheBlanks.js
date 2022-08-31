@@ -29,12 +29,14 @@ function fillTheBlanks(totalLength, word, filler) {
   // 총길이에서 단어의 길이를 뺀 나머지 길이를 구한다.
   const remainingLength = totalLength - wordLength;
   // 나머지 길이를 2로 나눠서 홀짝 판별한다.
-  const isOdd = !!(remainingLength % 2);
+  const isEven = remainingLength % 2 === 0;
 
   // 짝수이면 단어의 좌우에 넣을 문자열의 길이를 동일하게 주고,
   // 홀수라면 왼쪽엔 소수점 이하를 절사한 길이, 오른쪽엔 왼쪽보다 1 길게 준다.
-  let leftLength = isOdd ? Math.floor(remainingLength / 2) : remainingLength;
-  let rightLength = isOdd ? leftLength + 1 : leftLength;
+  let leftLength = isEven
+    ? remainingLength / 2
+    : Math.floor(remainingLength / 2);
+  let rightLength = isEven ? leftLength : leftLength + 1;
 
   // 주어진 길이만큼 filler로 채워진 좌우 배열을 만든다.
   const leftFiller = new Array(leftLength).fill(filler);
@@ -45,5 +47,5 @@ function fillTheBlanks(totalLength, word, filler) {
   return result;
 }
 
-const result = fillTheBlanks(50, "hi", "=");
+const result = fillTheBlanks(5, "hi", "=");
 console.log(result);
